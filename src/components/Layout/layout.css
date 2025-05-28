@@ -28,14 +28,6 @@ aside {
     padding: 6px;
 }
 
-.content-header {
-    height: 70px;
-    border-radius: 8px;
-    box-shadow: 1px 1px 1px 1px lightgrey;
-}
-.content-header h1{
-    margin-left: 20px;
-}
 .main-header{
     height:63px
 }

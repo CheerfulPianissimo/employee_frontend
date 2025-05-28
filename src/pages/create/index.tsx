@@ -6,7 +6,10 @@ import { Layout } from "../../components/Layout";
 import { Select } from "../../components/Select";
 export const Create = () => {
   return (
-    <Layout sidebar_title="Employees List" header_title="Create Employee">
+    <>
+      <div className="content-header">
+        <h1>Create Employee</h1>
+      </div>
       <div className="form-full">
         <form>
           <div className="form-inputs">
@@ -66,6 +69,6 @@ export const Create = () => {
           </div>
         </form>
       </div>
-    </Layout>
+      </>
   );
 };

@@ -18,7 +18,7 @@
     gap: 20px;
 }
 
-.label-input-group {
+.form-inputs .label-input-group {
     display: flex;
     flex-direction: column;
     width: calc(33.33% - 20px);
@@ -44,3 +44,11 @@
 }
 
 
+.content-header {
+    height: 70px;
+    border-radius: 8px;
+    box-shadow: 1px 1px 1px 1px lightgrey;
+}
+.content-header h1{
+    margin-left: 20px;
+}

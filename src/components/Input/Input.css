@@ -25,3 +25,7 @@
 .textarea-group{
     display: flex;
 }
+
+.textarea-group input{
+    width: 100%;
+}

@@ -67,7 +67,7 @@ export const Login = () => {
               Show Password
             </div>
 
-            <Button  disabled={username.length===0 || password.length===0} text="Login" onClick={() => console.log("Login Clicked")} />
+            <Button  disabled={username.length===0 || password.length===0} text="Login" onClick={() => window.localStorage.setItem('isLoggedIn','true')} />
               </form>
           </div>
         </div>
