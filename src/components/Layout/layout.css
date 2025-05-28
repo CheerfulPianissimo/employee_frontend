@@ -1,0 +1,53 @@
+
+
+aside {
+    width: 250px;
+    position: fixed;
+    top: 0
+}
+
+.logo {
+    width: 90%;
+    padding: 20px
+}
+
+.bluebox {
+    display: flex;
+    text-align: center;
+    background-color: rgb(39, 194, 255);
+    padding: 15px;
+    border-bottom-left-radius: 20px;
+    border-top-left-radius: 20px;
+    color: white;
+}
+
+.bluebox img {
+    width: 30px;
+    background-color: white;
+    border-radius: 50%;
+    padding: 6px;
+}
+
+.content-header {
+    height: 70px;
+    border-radius: 8px;
+    box-shadow: 1px 1px 1px 1px lightgrey;
+}
+.content-header h1{
+    margin-left: 20px;
+}
+.main-header{
+    height:63px
+}
+
+section {
+    margin-left: 250px;
+    height: 100vh;
+    width: calc(100% - 250px);
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    background-color: #faf8f8e7;
+    gap: 40px;
+    padding: 23px;
+}

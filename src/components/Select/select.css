@@ -1,0 +1,9 @@
+
+.label-input-group select {
+    background-color: white;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    color: gray;
+    padding:8px;
+}
+
