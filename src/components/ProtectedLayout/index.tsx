@@ -2,14 +2,22 @@ import React from "react";
 import "./layout.css";
 import kvlogo from "../../assets/kv-logo.png";
 import icon from "../../assets/icon.svg";
-import { Outlet } from "react-router-dom";
-export const Layout = ({
+import { Navigate, Outlet } from "react-router-dom";
+export const ProtectedLayout = ({
   children,
-//   sidebar_title
-}: {
+}: //   sidebar_title
+{
   children?: React.ReactNode;
-//   sidebar_title: string;
+  //   sidebar_title: string;
 }) => {
+  function isLoggedIn() {
+    const token = window.localStorage.getItem("isLoggedIn");
+    return token === "true";
+  }
+  if (!isLoggedIn()) {
+    return <Navigate to="/login" />;
+  }
+
   return (
     <main>
       <header className="main-header"></header>
@@ -23,7 +31,7 @@ export const Layout = ({
         </div>
       </aside>
       <section>
-        <Outlet/>
+        <Outlet />
         {children}
       </section>
     </main>

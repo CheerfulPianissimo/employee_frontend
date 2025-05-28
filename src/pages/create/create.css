@@ -48,6 +48,8 @@
     height: 70px;
     border-radius: 8px;
     box-shadow: 1px 1px 1px 1px lightgrey;
+    justify-content: center;
+    background-color: white;
 }
 .content-header h1{
     margin-left: 20px;

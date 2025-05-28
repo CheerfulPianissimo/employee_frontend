@@ -1,0 +1,13 @@
+.content-header {
+  display: flex;
+  flex-direction: column;
+  background-color: white;
+}
+
+.content-header button {
+  border-radius: 40px;
+}
+.right-buttons-div {
+  position: absolute;
+  right: 40px;
+}

@@ -2,7 +2,6 @@ import { Input } from "../../components/Input";
 import "./create.css";
 
 import { Button } from "../../components/Button";
-import { Layout } from "../../components/Layout";
 import { Select } from "../../components/Select";
 export const Create = () => {
   return (

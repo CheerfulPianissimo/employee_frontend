@@ -4,7 +4,10 @@ import { Create } from "./pages/create";
 import { Login } from "./pages/login";
 import UncontrolledLogin from "./pages/login/UncontrolledLogin";
 import NotFound from "./pages/notfound";
-import { Layout } from "./components/Layout";
+import { ProtectedLayout } from "./components/ProtectedLayout";
+import { EmployeeCard } from "./components/EmployeeCard";
+import { EmployeeDetails } from "./pages/employee_details";
+import { EmployeeList } from "./pages/employee_list";
 
 function isLoggedIn(){
   const token=window.localStorage.getItem("isLoggedIn");
@@ -14,19 +17,21 @@ function isLoggedIn(){
 const router=createBrowserRouter([
   {
     path:"/",
-    element:isLoggedIn()?<Navigate to="/employees" />: <Login/>,
+    element:<Navigate to="/login"/>,
     // errorElement:<NotFound/>
   },
   {
     path:"/login",
-    element:isLoggedIn()?<Navigate to="/employees" />: <Login/>,
+    element: <Login/>,
   },
   {
     path:"/employees",
-    element:isLoggedIn()?<Layout />: <Navigate to="/login" />,
+    element:<ProtectedLayout />,
     children: [
       { index: true, element: <Create />},
-    { path: "create", element: <Create />},
+      { path: "create", element: <Create />},
+      {path:":id",element: <EmployeeDetails/>},
+       {path:"list",element: <EmployeeList/>}
     ]
   },
   {

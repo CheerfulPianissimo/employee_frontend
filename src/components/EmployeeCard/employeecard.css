@@ -1,0 +1,28 @@
+.body-full {
+    padding: 20px;
+    border-radius: 8px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap:wrap;
+    gap: 60px;
+    background-color: white;
+    box-shadow: 1px 1px 1px 1px lightgrey;
+}
+
+.label-data-box{
+    display:flex;
+    flex-direction: column;
+}
+
+.info-label {
+    color: #666;
+    font-size: 14px;
+    margin-bottom: 8px;
+    font-weight: 500;
+}
+
+.info-status{
+    background-color: greenyellow;
+    border-radius: 5px;
+}
+
