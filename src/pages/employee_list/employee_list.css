@@ -4,15 +4,10 @@
 }
 
 .content-header {
-  height: 70px;
   border-radius: 8px;
   box-shadow: 1px 1px 1px 1px lightgrey;
   justify-content: center;
   background-color: white;
-}
-
-.content-header button {
-  border-radius: 40px;
 }
 
 .right-buttons-div {
@@ -24,17 +19,18 @@
 }
 
 .right-buttons-div select{
-    background-color: lightblue;
+    background-color: #EAF9FF;
     padding: 10px 20px;
     border-radius: 40px;
 }
 
 .emp-info-row {
   box-shadow: 1px 1px 1px 1px lightgrey;
-  height: 60px;
+  padding: 10px;
   align-items: center;
   border-radius: 5px;
   display: flex;
+  background-color: white;
 }
 
 .data-label {
@@ -43,11 +39,39 @@
 }
 
 .table-header {
-  background-color: lightblue;
+  background-color: #EAF9FF;
 }
 
 .info-status{
-    background-color: greenyellow;
+    
     border-radius: 40px;
 }
 
+.emp-info-row .ACTIVE{
+  background-color: #D3F4BE;
+}
+
+.emp-info-row .INACTIVE{
+  background-color: #FFBFBF;
+}
+
+.emp-info-row .PROBATION{
+  background-color: #F5ECB8;
+}
+
+.action-buttons-div{
+  display: flex;
+  gap:20px;
+  
+}
+
+.action-buttons-div button{
+  border:none;
+  background-color: white;
+}
+
+.overlay-buttons-div{
+  display: flex;
+  gap:20px;
+  margin-top: 20px;
+}

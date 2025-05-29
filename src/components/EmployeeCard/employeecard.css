@@ -22,7 +22,18 @@
 }
 
 .info-status{
-    background-color: greenyellow;
     border-radius: 5px;
+}
+
+.label-data-box .ACTIVE{
+  background-color: #D3F4BE;
+}
+
+.label-data-box .INACTIVE{
+  background-color: #FFBFBF;
+}
+
+.label-data-box .PROBATION{
+  background-color: #F5ECB8;
 }
 

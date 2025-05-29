@@ -8,7 +8,8 @@ export const Input = ({
   onChange,
   ref,
   endAdornment = null,
-  value
+  value,
+  disabled=false
 }: {
   label?: string;
   id: string;
@@ -18,6 +19,7 @@ export const Input = ({
   ref?: React.RefObject<HTMLInputElement | null>;
   endAdornment?: ReactNode;
   value?:string
+  disabled?:boolean
 }) => {
   return (
     <div className="label-input-group">
@@ -30,6 +32,7 @@ export const Input = ({
           onChange={onChange}
           ref={ref}
           value={value}
+          disabled={disabled}
         />
         {endAdornment}
       </div>

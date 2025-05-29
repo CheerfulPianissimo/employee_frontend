@@ -14,7 +14,7 @@ aside {
 .bluebox {
     display: flex;
     text-align: center;
-    background-color: rgb(39, 194, 255);
+    background-color: #03AEEE;
     padding: 15px;
     border-bottom-left-radius: 20px;
     border-top-left-radius: 20px;
