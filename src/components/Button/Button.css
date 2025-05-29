@@ -9,7 +9,6 @@
   transition: background-color 0.3s;
 }
 
-
 .button--secondary {
   background-color: white;
   color: gray;
@@ -20,10 +19,10 @@
   padding-bottom: 5px;
 }
 
-.button--icon{
-  background-color: #EAF9FF;
+.button--icon {
+  background-color: #eaf9ff;
   display: flex;
-  gap:12px;
+  gap: 12px;
   align-items: center;
   padding: 12px 24px;
   border: none;
@@ -32,17 +31,19 @@
   font-size: 16px;
   justify-content: space-between;
 }
-.button-span{
+.button-span {
   display: flex;
-   background-color: #EAF9FF;
-   border-radius: 40px;
+  border-radius: 40px;
+  /* width:fit-content; */
+  justify-content: center;
 }
-
-.button-icon-img{
+.button-span-icon{
+  background-color: #eaf9ff;
+}
+.button-icon-img {
   background-color: #03aeee;
   border-radius: 30px;
-  padding:10px;
+  padding: 10px;
   /* height: 50px; */
   /* width: 50px; */
 }
-

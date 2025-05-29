@@ -40,6 +40,7 @@ export const EmployeeDetails = () => {
   let navigate = useNavigate();
   return (
     <>
+    <title> Employee Details</title>
       <div className="content-header">
         <h1>Employee Details</h1>
         <div className="right-buttons-div">

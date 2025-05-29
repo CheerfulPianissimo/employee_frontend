@@ -21,7 +21,7 @@ export const Button = ({
   };
   return (
     <>
-      <span className="button-span">
+      <span className={"button-span ".concat(icon?"button-span-icon":"")}>
         <Iconimg />
         <button
           disabled={disabled}

@@ -1,4 +1,3 @@
-import { Input } from "../../components/Input";
 import "./employeecard.css";
 
 import { useParams } from "react-router-dom";

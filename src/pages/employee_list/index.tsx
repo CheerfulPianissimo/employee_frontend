@@ -1,5 +1,4 @@
 import { Button } from "../../components/Button";
-import { EmployeeCard } from "../../components/EmployeeCard";
 import "./employee_list.css";
 import delete_icon from "../../assets/delete.svg";
 import edit_icon from "../../assets/editpen.svg";
@@ -295,14 +294,16 @@ const EmployeeInfo = ({
   data,
   onDelete,
   onEdit,
+  onClick,
 }: {
   data: Employee;
-  onDelete: () => void;
-  onEdit: () => void;
+  onDelete: (a:any) => void;
+  onEdit: (a:any) => void;
+  onClick?: (a:any) => void;
 }) => {
   return (
     <>
-      <div className="emp-info-row">
+      <div className="emp-info-row" onClick={onClick}>
         <EmployeeInfoElement data={data.name} />
         <EmployeeInfoElement data={data.employeeId} />
         <EmployeeInfoElement
@@ -349,6 +350,7 @@ export const EmployeeList = () => {
   };
   return (
     <>
+      <title>Employee List</title>
       <div className="content-header">
         <h1>Employee List</h1>
         <div className="right-buttons-div">
@@ -361,7 +363,11 @@ export const EmployeeList = () => {
               <option>{opt}</option>
             ))}
           </select>
-          <Button text="Create Employee" icon={plus_icon} onClick={()=>navigate("/employees/create")}/>
+          <Button
+            text="Create Employee"
+            icon={plus_icon}
+            onClick={() => navigate("/employees/create")}
+          />
         </div>
       </div>
       <div className="table-header emp-info-row">
@@ -373,17 +379,25 @@ export const EmployeeList = () => {
         <EmployeeInfoElement data="Experience" />
         <EmployeeInfoElement data="Action" />
       </div>
-      {employees.filter((emp)=>emp.status===filterValue||filterValue==='ALL')
-      .map((emp) => (
-        <EmployeeInfo
-          data={emp as unknown as Employee}
-          onDelete={() => {
-            setDeleteConfirm(true);
-            setActivateDeleteConfirmFor(emp.id);
-          }}
-          onEdit={() => {navigate("/employees/edit/" + emp.id)}}
-        />
-      ))}
+      {employees
+        .filter((emp) => emp.status === filterValue || filterValue === "ALL")
+        .map((emp) => (
+          <EmployeeInfo
+            data={emp as unknown as Employee}
+            onDelete={(event) => {
+              setDeleteConfirm(true);
+              setActivateDeleteConfirmFor(emp.id);
+              event.stopPropagation();
+            }}
+            onEdit={(event:Event) => {
+              navigate("/employees/edit/" + emp.id);
+              event.stopPropagation();
+            }}
+            onClick={(event:Event) => {
+              navigate("/employees/" + emp.id);
+            }}
+          />
+        ))}
       <OverlayDialog
         isOpen={deleteConfirm}
         onClose={() => setDeleteConfirm(false)}
