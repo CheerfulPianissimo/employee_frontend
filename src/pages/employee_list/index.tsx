@@ -6,7 +6,7 @@ import plus_icon from "../../assets/plus.svg";
 import { useEffect, useState } from "react";
 import { useNavigate, useSearchParams } from "react-router";
 import OverlayDialog from "../../components/OverlayDialog";
-import type Employee from "../../employee";
+import type EmployeeEntity from "../../employee";
 let employees = [
   {
     id: 19,
@@ -296,7 +296,7 @@ const EmployeeInfo = ({
   onEdit,
   onClick,
 }: {
-  data: Employee;
+  data: EmployeeEntity;
   onDelete: (a: any) => void;
   onEdit: (a: any) => void;
   onClick?: (a: any) => void;
@@ -377,7 +377,7 @@ const EmployeeList = () => {
         .filter((emp) => emp.status === filterValue || filterValue === "ALL")
         .map((emp) => (
           <EmployeeInfo
-            data={emp as unknown as Employee}
+            data={emp as unknown as EmployeeEntity}
             onDelete={(event) => {
               setDeleteConfirm(true);
               setActivateDeleteConfirmFor(emp.id);

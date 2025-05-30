@@ -1,8 +1,8 @@
 import "./employeecard.css";
 
 import { useParams } from "react-router-dom";
-import type Employee from "../../employee";
-export const EmployeeCard = ({emp}:{emp:Employee}) => {
+import type EmployeeEntity from "../../employee";
+export const EmployeeCard = ({emp}:{emp:EmployeeEntity}) => {
   
     const {id}=useParams();
   return (

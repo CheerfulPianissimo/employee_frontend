@@ -2,7 +2,7 @@ import { Button } from "../../components/Button";
 import { EmployeeCard } from "../../components/EmployeeCard";
 import "./employee_details.css";
 import edit_icon from "../../assets/editpen_white.svg";
-import Employee from "../../employee";
+import EmployeeEntity from "../../employee";
 import { useNavigate } from "react-router-dom";
 const EmployeeDetails = () => {
   let emp = {
@@ -51,7 +51,7 @@ const EmployeeDetails = () => {
           />
         </div>
       </div>
-      <EmployeeCard emp={Object.assign(new Employee(), emp)} />
+      <EmployeeCard emp={Object.assign(new EmployeeEntity(), emp)} />
     </>
   );
 };

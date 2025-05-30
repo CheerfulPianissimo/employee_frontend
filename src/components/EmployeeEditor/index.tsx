@@ -1,18 +1,18 @@
 import { useState, type ChangeEvent } from "react";
-import Employee, { Address, Department } from "../../employee";
+import EmployeeEntity, { Address, Department } from "../../employee";
 import { Button } from "../Button";
 import { Input } from "../Input";
 import { Select } from "../Select";
 import "./employeeeditor.css";
 import { useNavigate } from "react-router-dom";
 function getFreshEmployee() {
-  let createEmp = new Employee();
+  let createEmp = new EmployeeEntity();
   createEmp.dateOfJoining = new Date().toString();
   createEmp.department = new Department();
   createEmp.address = new Address();
   return createEmp;
 }
-export const EmployeeEditor = ({ emp }: { emp?: Employee }) => {
+export const EmployeeEditor = ({ emp }: { emp?: EmployeeEntity }) => {
   let navigate = useNavigate();
   let [empState, setEmpstate] = useState(emp ? emp : getFreshEmployee());
   let update = (event: ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
@@ -163,7 +163,7 @@ export const EmployeeEditor = ({ emp }: { emp?: Employee }) => {
             </div>
           </div>
           <div className="form-group__submit">
-            <Button text={emp ? "Save" : "Create"} />
+            <Button text={emp ? "Save" : "Create" } />
             <Button
               text="Cancel"
               variant="secondary"

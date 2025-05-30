@@ -1,6 +1,6 @@
 import "../create/create.css";
 import { EmployeeEditor } from "../../components/EmployeeEditor";
-import type Employee from "../../employee";
+import type EmployeeEntity from "../../employee";
 let employee = {
   id: 28,
   createdAt: "2025-05-23T05:38:32.757Z",
@@ -39,7 +39,7 @@ const Edit = () => {
       <div className="content-header">
         <h1>Edit Employee</h1>
       </div>
-      <EmployeeEditor emp={employee as unknown as Employee} />
+      <EmployeeEditor emp={employee as unknown as EmployeeEntity} />
     </>
   );
 };

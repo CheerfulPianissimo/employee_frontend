@@ -9,14 +9,14 @@ export class Address extends AbstractEntity{
     pincode!: string;
     line2!: string;
     houseNo!: string;
-    employee!: Employee;
+    employee!: EmployeeEntity;
 }
 export class Department extends AbstractEntity{
     name!: string;
 }       
 
 
-class Employee extends AbstractEntity {
+class EmployeeEntity extends AbstractEntity {
   email!: string;
   name!: string;
   age!: number;
@@ -38,4 +38,4 @@ class Employee extends AbstractEntity {
                                                                                                                                                                                                                                                                                                                                                                                          
     
 
-export default Employee;
+export default EmployeeEntity;
