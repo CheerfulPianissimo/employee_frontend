@@ -33,7 +33,7 @@ let employee = {
     name: "HR",
   },
 };
-export const Edit = () => {
+const Edit = () => {
   return (
     <>
       <div className="content-header">
@@ -43,3 +43,4 @@ export const Edit = () => {
     </>
   );
 };
+export default Edit;

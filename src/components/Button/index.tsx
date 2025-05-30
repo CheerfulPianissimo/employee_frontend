@@ -1,4 +1,3 @@
-import type { ReactNode } from "react";
 import "./Button.css";
 
 export const Button = ({
@@ -17,7 +16,7 @@ export const Button = ({
   icon?: string;
 }) => {
   const Iconimg = () => {
-    if (icon) return <img className="button-icon-img" src={icon} />;
+    if (icon) return <img className="button-icon-img" src={icon} onClick={onClick}/>;
   };
   return (
     <>

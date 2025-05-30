@@ -2,7 +2,7 @@ import "./create.css";
 
 import { EmployeeEditor } from "../../components/EmployeeEditor";
 
-export const Create = () => {
+ const Create = () => {
   return (
     <>
       <div className="content-header">
@@ -12,3 +12,4 @@ export const Create = () => {
     </>
   );
 };
+export default Create;

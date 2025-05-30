@@ -4,7 +4,7 @@ import "./employee_details.css";
 import edit_icon from "../../assets/editpen_white.svg";
 import Employee from "../../employee";
 import { useNavigate } from "react-router-dom";
-export const EmployeeDetails = () => {
+const EmployeeDetails = () => {
   let emp = {
     id: 28,
     createdAt: "2025-05-23T05:38:32.757Z",
@@ -55,3 +55,5 @@ export const EmployeeDetails = () => {
     </>
   );
 };
+
+export default EmployeeDetails;

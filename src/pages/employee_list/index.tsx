@@ -297,9 +297,9 @@ const EmployeeInfo = ({
   onClick,
 }: {
   data: Employee;
-  onDelete: (a:any) => void;
-  onEdit: (a:any) => void;
-  onClick?: (a:any) => void;
+  onDelete: (a: any) => void;
+  onEdit: (a: any) => void;
+  onClick?: (a: any) => void;
 }) => {
   return (
     <>
@@ -325,29 +325,16 @@ const EmployeeInfo = ({
   );
 };
 const statusOptions = ["ALL", "ACTIVE", "PROBATION", "INACTIVE"];
-export const EmployeeList = () => {
-  let [filterValue, setFilterValue] = useState(statusOptions[0]);
+const EmployeeList = () => {
   let [searchParams, setSearchParams] = useSearchParams();
   let [deleteConfirm, setDeleteConfirm] = useState(false);
   let [activateDeleteConfirmFor, setActivateDeleteConfirmFor] = useState(-1);
-  useEffect(() => {
-    let statusVal = searchParams.get("status");
-    if (!statusVal) return;
-    setFilterValue(statusVal);
-  }, []);
-  useEffect(() => {
-    let urlSearchParams = new URLSearchParams(
-      searchParams ? searchParams : undefined
-    );
-    urlSearchParams.delete("status");
-    urlSearchParams.set("status", filterValue);
-    setSearchParams(urlSearchParams);
-  }, [filterValue]);
   let navigate = useNavigate();
   let onOverlayDeletePressed = () => {
     employees = employees.filter((emp) => emp.id != activateDeleteConfirmFor);
     setDeleteConfirm(false);
   };
+  let filterValue=searchParams.get("status") || "ALL";
   return (
     <>
       <title>Employee List</title>
@@ -357,7 +344,14 @@ export const EmployeeList = () => {
           <label>Filter By </label>
           <select
             value={filterValue}
-            onChange={(newval) => setFilterValue(newval.target.value)}
+            onChange={(newval) => {
+              let urlSearchParams = new URLSearchParams(
+                searchParams ? searchParams : undefined
+              );
+              urlSearchParams.delete("status");
+              urlSearchParams.set("status",newval.target.value);
+              setSearchParams(urlSearchParams);
+            }}
           >
             {statusOptions.map((opt) => (
               <option>{opt}</option>
@@ -389,11 +383,11 @@ export const EmployeeList = () => {
               setActivateDeleteConfirmFor(emp.id);
               event.stopPropagation();
             }}
-            onEdit={(event:Event) => {
+            onEdit={(event: Event) => {
               navigate("/employees/edit/" + emp.id);
               event.stopPropagation();
             }}
-            onClick={(event:Event) => {
+            onClick={(event: Event) => {
               navigate("/employees/" + emp.id);
             }}
           />
@@ -416,3 +410,5 @@ export const EmployeeList = () => {
     </>
   );
 };
+
+export default EmployeeList;
