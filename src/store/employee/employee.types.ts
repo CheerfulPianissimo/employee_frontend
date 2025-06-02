@@ -12,6 +12,8 @@
 
  */
 
+import type EmployeeEntity from "../../employee";
+
 export interface Address {
   houseNo: string;
 
@@ -44,29 +46,30 @@ export const EmployeeStatus = {
 
 export type Status = (typeof EmployeeStatus)[keyof typeof EmployeeStatus];
 
-export interface Employee {
-  employeeId: string;
+// export interface Employee {
+//   employeeId: string;
 
-  email: string;
+//   email: string;
 
-  name: string;
+//   name: string;
 
-  age: number;
+//   age: number;
 
-  address: Address;
+//   address: Address;
 
-  password: string;
+//   password: string;
 
-  role: Role;
+//   role: Role;
 
-  dateOfJoining: Date;
+//   dateOfJoining: Date;
 
-  experience: number;
+//   experience: number;
 
-  status: Status;
+//   status: Status;
 
-  departmentId: number | string;
-}
+//   departmentId: number | string;
+// }
+export type Employee=EmployeeEntity;
 
 export const EMPLOYEE_ACTION_TYPES = {
   DELETE: "employee/DELETE",
