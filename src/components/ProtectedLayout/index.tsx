@@ -11,8 +11,8 @@ export const ProtectedLayout = ({
   //   sidebar_title: string;
 }) => {
   function isLoggedIn() {
-    const token = window.localStorage.getItem("isLoggedIn");
-    return token === "true";
+    const token = window.localStorage.getItem("token");
+    return !(token === undefined);
   }
   if (!isLoggedIn()) {
     return <Navigate to="/login" />;
@@ -22,7 +22,7 @@ export const ProtectedLayout = ({
     <main>
       <header className="main-header"></header>
       <aside>
-        <a href="https://keyvalue.systems">
+        <a href="/">
           <img className="logo" src={kvlogo} />
         </a>
         <div className="bluebox" onClick={()=>navigate('/employees/list')}>

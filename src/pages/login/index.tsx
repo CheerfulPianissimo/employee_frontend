@@ -6,8 +6,11 @@ import { Input } from "../../components/Input";
 import { useEffect, useRef, useState } from "react";
 import useLocalStorage from "../../hooks/useLocalStorage";
 import { useNavigate } from "react-router-dom";
+import { useLoginMutation } from "../../api-services/auth/login.api";
 
 export const Login = () => {
+  const [login,{isLoading}] = useLoginMutation();
+  let [error,setError]=useState("");
   let [username, setUsername] = useState("");
   let [password, setPassword] = useState("");
   let usernameref = useRef<HTMLInputElement>(null);
@@ -15,8 +18,8 @@ export const Login = () => {
   let [userAlert, setUserAlert] = useState("");
   let navigate = useNavigate();
   useEffect(() => {
-    if (username.length > 10)
-      setUserAlert("Username cannot be longer than 10 chars.");
+    if (username.length > 20)
+      setUserAlert("Username cannot be longer than 20 chars.");
     else setUserAlert("");
   }, [username]);
   useEffect(() => {
@@ -29,9 +32,21 @@ export const Login = () => {
     setPassword(event.target.value);
   }
 
+  const onLogin = async () => {
+     login({email:username,password:password}).unwrap()
+     .then((response)=>{
+        window.localStorage.setItem("token", response.accessToken);
+         navigate("/employees");
+     }).catch((error)=>{
+      setError(error.data.message)
+     })
+    
+   
+  };
+
   return (
     <>
-    <title>Login</title>
+      <title>Login</title>
       <div className="login">
         <div className="left-div">
           <img src={kvlogin} className="left-img" />
@@ -40,7 +55,7 @@ export const Login = () => {
           <div className="input-section">
             <img className="logo" src={kvlogo} />
 
-            <form>
+            <div className="form-full">
               <Input
                 type="text"
                 label="Username"
@@ -58,6 +73,7 @@ export const Login = () => {
                   </button>
                 }
               />
+              <label>{error}</label>
               <label>{userAlert}</label>
               <Input
                 type={JSON.parse(showPwd) ? "text" : "password"}
@@ -78,14 +94,12 @@ export const Login = () => {
               </div>
 
               <Button
-                disabled={username.length === 0 || password.length === 0}
-                text="Login"
-                onClick={() => {
-                  window.localStorage.setItem("isLoggedIn", "true");
-                  navigate("/employees");
-                }}
+                disabled={username.length === 0 || password.length === 0 || isLoading}
+                // disabled={isLoading()}
+                text="Login" 
+                onClick={onLogin}
               />
-            </form>
+            </div>
           </div>
         </div>
       </div>

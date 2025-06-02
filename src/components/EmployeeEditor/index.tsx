@@ -10,6 +10,8 @@ import {
   EMPLOYEE_ACTION_TYPES,
   type EmployeeAction,
 } from "../../store/employee/employee.types";
+import { useAppDispatch } from "../../store/store";
+import { addEmployee } from "../../store/employee/employeeReducer";
 function getFreshEmployee() {
   let createEmp = new EmployeeEntity();
   createEmp.dateOfJoining = new Date().toString();
@@ -19,7 +21,7 @@ function getFreshEmployee() {
 }
 export const EmployeeEditor = ({ emp }: { emp?: EmployeeEntity }) => {
   let navigate = useNavigate();
-  let dispatch = useDispatch();
+  let dispatch = useAppDispatch();
   let [empState, setEmpstate] = useState(emp ? emp : getFreshEmployee());
   let update = (event: ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     console.log(event);
@@ -55,10 +57,7 @@ export const EmployeeEditor = ({ emp }: { emp?: EmployeeEntity }) => {
   };
 
   let submit = () => {
-    dispatch({
-      type: emp ?EMPLOYEE_ACTION_TYPES.UPDATE: EMPLOYEE_ACTION_TYPES.ADD  ,
-      payload: empState,
-    });
+    dispatch(addEmployee(empState));
     navigate("/employees");
   };
 

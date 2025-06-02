@@ -3,12 +3,16 @@ import "./employee_list.css";
 import delete_icon from "../../assets/delete.svg";
 import edit_icon from "../../assets/editpen.svg";
 import plus_icon from "../../assets/plus.svg";
-import { useEffect, useState } from "react";
+
 import { useNavigate, useSearchParams } from "react-router";
 import OverlayDialog from "../../components/OverlayDialog";
 import type EmployeeEntity from "../../employee";
-import { useDispatch, useSelector } from "react-redux";
-import { EMPLOYEE_ACTION_TYPES, type EmployeeState } from "../../store/employee/employee.types";
+
+import {
+  useDeleteEmployeeMutation,
+  useGetEmployeeListQuery,
+} from "../../api-services/employees/employees.api";
+import { useState } from "react";
 
 const EmployeeInfoElement = ({
   data,
@@ -62,17 +66,25 @@ const EmployeeInfo = ({
 };
 const statusOptions = ["ALL", "ACTIVE", "PROBATION", "INACTIVE"];
 const EmployeeList = () => {
-  let employees=useSelector((state:EmployeeState)=>state.employees);
-  let dispatch=useDispatch();
-  let [searchParams, setSearchParams] = useSearchParams();
-  let [deleteConfirm, setDeleteConfirm] = useState(false);
-  let [activateDeleteConfirmFor, setActivateDeleteConfirmFor] = useState("");
-  let navigate = useNavigate();
-  let onOverlayDeletePressed = () => {
-    dispatch({type:EMPLOYEE_ACTION_TYPES.DELETE, payload:activateDeleteConfirmFor.toString()})
+  // let employees = useAppSelector((state) => state.employee.employees);
+  const { data: employees } = useGetEmployeeListQuery();
+  console.log(employees);
+  const [deleteEmployee] = useDeleteEmployeeMutation();
+  const [searchParams, setSearchParams] = useSearchParams();
+  const [deleteConfirm, setDeleteConfirm] = useState(false);
+  const [activateDeleteConfirmFor, setActivateDeleteConfirmFor] = useState(-1);
+  const navigate = useNavigate();
+  const onOverlayDeletePressed = () => {
+    // dispatch(deleteEmployee(activateDeleteConfirmFor.toString()));
+    console.log("activate for " + activateDeleteConfirmFor.toString());
+    deleteEmployee({id:activateDeleteConfirmFor})
+      .unwrap()
+      .catch((error) => {
+        console.log(error);
+      });
     setDeleteConfirm(false);
   };
-  let filterValue=searchParams.get("status") || "ALL";
+  const filterValue = searchParams.get("status") || "ALL";
   return (
     <>
       <title>Employee List</title>
@@ -87,7 +99,7 @@ const EmployeeList = () => {
                 searchParams ? searchParams : undefined
               );
               urlSearchParams.delete("status");
-              urlSearchParams.set("status",newval.target.value);
+              urlSearchParams.set("status", newval.target.value);
               setSearchParams(urlSearchParams);
             }}
           >
@@ -112,13 +124,13 @@ const EmployeeList = () => {
         <EmployeeInfoElement data="Action" />
       </div>
       {employees
-        .filter((emp) => emp.status === filterValue || filterValue === "ALL")
+        ?.filter((emp) => emp.status === filterValue || filterValue === "ALL")
         .map((emp) => (
           <EmployeeInfo
             data={emp as unknown as EmployeeEntity}
             onDelete={(event) => {
               setDeleteConfirm(true);
-              setActivateDeleteConfirmFor(emp.employeeId);
+              setActivateDeleteConfirmFor(emp.id);
               event.stopPropagation();
             }}
             onEdit={(event: Event) => {

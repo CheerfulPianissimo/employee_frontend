@@ -5,11 +5,11 @@ import {
 } from "react-router-dom";
 import "./App.css";
 import { lazy } from "react";
-
+import baseApi from "./api-services/api";
 import { Login } from "./pages/login";
 import NotFound from "./pages/notfound";
 import { ProtectedLayout } from "./components/ProtectedLayout";
-import { store } from "./store/store";
+import store  from "./store/store";
 import { Provider } from "react-redux";
 
 const EmployeeList = lazy(() => import("./pages/employee_list"));
