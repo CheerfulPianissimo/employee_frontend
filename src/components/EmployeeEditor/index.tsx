@@ -103,7 +103,7 @@ export const EmployeeEditor = ({ emp }: { emp?: EmployeeEntity }) => {
       console.log(dto);
       edit({ id: empState.id, emp: dto })
         .unwrap()
-        .then(() => setErrorMsg(""))
+        .then(() =>  navigate("/employees"))
         .catch((error) => {
           setErrorMsg(getErrorMessage(error));
         });

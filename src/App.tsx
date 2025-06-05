@@ -11,6 +11,7 @@ import NotFound from "./pages/notfound";
 import { ProtectedLayout } from "./components/ProtectedLayout";
 import store  from "./store/store";
 import { Provider } from "react-redux";
+import Profile from "./pages/profile";
 
 const EmployeeList = lazy(() => import("./pages/employee_list"));
 const Create = lazy(() => import("./pages/create"));
@@ -36,6 +37,14 @@ const router = createBrowserRouter([
       { path: "edit/:id", element: <Edit /> },
       { path: ":id", element: <EmployeeDetails  /> },
       { path: "list", element: <EmployeeList /> },
+      { path: "profile", element: <Profile /> },
+    ],
+  },
+  {
+    path: "/profile",
+    element: <ProtectedLayout />,
+    children: [
+      { index: true, element: <Profile /> },
     ],
   },
   {
