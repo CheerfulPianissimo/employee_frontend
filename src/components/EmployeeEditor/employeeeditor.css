@@ -40,3 +40,6 @@
     display: flex;
     gap: 20px
 }
+.errorMsg{
+    color:red;
+}

@@ -1,29 +1,58 @@
-import { useState, type ChangeEvent, type Dispatch } from "react";
-import EmployeeEntity, { Address, Department } from "../../employee";
+import { useState, type ChangeEvent } from "react";
+import EmployeeEntity, {
+  Address,
+  Department,
+  employeeToCreateEmployeeDto,
+} from "../../employee";
 import { Button } from "../Button";
 import { Input } from "../Input";
-import { Select } from "../Select";
+import { Select, type SelectOption } from "../Select";
 import "./employeeeditor.css";
 import { useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
 import {
-  EMPLOYEE_ACTION_TYPES,
-  type EmployeeAction,
-} from "../../store/employee/employee.types";
-import { useAppDispatch } from "../../store/store";
-import { addEmployee } from "../../store/employee/employeeReducer";
+  useCreateEmployeeMutation,
+  useEditEmployeeMutation,
+} from "../../api-services/employees/employees.api";
+import { useGetDepartmentsListQuery } from "../../api-services/department/department.api";
+const roles = ["UI", "UX", "DEVELOPER", "HR"];
+const status_values = ["ACTIVE", "INACTIVE", "PROBATION"];
+
+function getErrorMessage(error: any): string {
+  if (error.data.error) return error.data.error;
+  if(error.data.message)return error.data.message;
+  console.log( JSON.parse(error.data.message));
+  const message = 
+    JSON.parse(error.data.message).map((c: any) =>
+      Object.values(c.constraints).join(",")
+    ).join(", ");
+  
+  return message;
+}
+
 function getFreshEmployee() {
+  console.log("getFresh called");
   let createEmp = new EmployeeEntity();
+  createEmp.role = roles[0];
+  createEmp.status = status_values[0];
   createEmp.dateOfJoining = new Date().toString();
   createEmp.department = new Department();
+  createEmp.department.id = 1;
   createEmp.address = new Address();
   return createEmp;
 }
 export const EmployeeEditor = ({ emp }: { emp?: EmployeeEntity }) => {
-  let navigate = useNavigate();
-  let dispatch = useAppDispatch();
-  let [empState, setEmpstate] = useState(emp ? emp : getFreshEmployee());
-  let update = (event: ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+  const isCreate = emp === undefined;
+  const navigate = useNavigate();
+  const [edit] = useEditEmployeeMutation();
+  const [create] = useCreateEmployeeMutation();
+  const { data: depts } = useGetDepartmentsListQuery();
+  const [errorMsg, setErrorMsg] = useState("");
+
+  // console.log(emp);
+  const [empState, setEmpstate] = useState(isCreate ? getFreshEmployee() : emp);
+  // console.log(empState);
+  if (!depts) return;
+  const update = (event: ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     console.log(event);
     let newEmp = structuredClone(empState);
     const id = event.target.id;
@@ -35,6 +64,7 @@ export const EmployeeEditor = ({ emp }: { emp?: EmployeeEntity }) => {
       case "role":
       case "status":
       case "employeeId":
+      case "password":
         newEmp[id] = val;
         break;
       case "experience":
@@ -43,7 +73,8 @@ export const EmployeeEditor = ({ emp }: { emp?: EmployeeEntity }) => {
         console.log(newEmp[id]);
         break;
       case "department":
-        newEmp.department.name = val;
+        let dept = depts.find((dept) => dept.name === val);
+        if (dept) newEmp.department = dept;
         break;
       case "houseNo":
       case "line1":
@@ -56,11 +87,29 @@ export const EmployeeEditor = ({ emp }: { emp?: EmployeeEntity }) => {
     setEmpstate(newEmp);
   };
 
-  let submit = () => {
-    dispatch(addEmployee(empState));
-    navigate("/employees");
-  };
+  const submit = async () => {
+    const dto = employeeToCreateEmployeeDto(empState);
+    // console.log(empState);
+    if (isCreate) {
+      create(dto)
+        .unwrap()
+        .then(() => navigate("/employees"))
+        .catch((error) => {
+          setErrorMsg(getErrorMessage(error));
+        });
+    } else {
+      // empState.departmentId=empState.id;
 
+      console.log(dto);
+      edit({ id: empState.id, emp: dto })
+        .unwrap()
+        .then(() => setErrorMsg(""))
+        .catch((error) => {
+          setErrorMsg(getErrorMessage(error));
+        });
+    }
+    //navigate("/employees");
+  };
   return (
     <>
       <div className="form-full">
@@ -105,34 +154,36 @@ export const EmployeeEditor = ({ emp }: { emp?: EmployeeEntity }) => {
           />
           <Select
             id="department"
-            options={[
-              { value: "sde", label: "Development" },
-              { value: "sre", label: "SRE" },
-              { value: "HR", label: "HR" },
-            ]}
+            options={depts.map<SelectOption>((dept) => {
+              return {
+                value: dept.name,
+                label: dept.name,
+              };
+            })}
             label={"Department"}
             value={empState.department.name}
             onChange={update}
           />
           <Select
             id="role"
-            options={[
-              { value: "UI", label: "UI" },
-              { value: "UX", label: "UX" },
-              { value: "DEVELOPER", label: "DEVELOPER" },
-              { value: "HR", label: "HR" },
-            ]}
+            options={roles.map<SelectOption>((role) => {
+              return {
+                value: role,
+                label: role,
+              };
+            })}
             label={"Role"}
             value={empState.role}
             onChange={update}
           />
           <Select
             id="status"
-            options={[
-              { value: "ACTIVE", label: "ACTIVE" },
-              { value: "INACTIVE", label: "INACTIVE" },
-              { value: "PROBATION", label: "PROBATION" },
-            ]}
+            options={status_values.map<SelectOption>((status) => {
+              return {
+                value: status,
+                label: status,
+              };
+            })}
             label={"Status"}
             value={empState.status}
             onChange={update}
@@ -176,7 +227,19 @@ export const EmployeeEditor = ({ emp }: { emp?: EmployeeEntity }) => {
               onChange={update}
             />
           </div>
+          {isCreate ? (
+            <Input
+              label="Password"
+              type="text"
+              id="password"
+              value={empState.password}
+              onChange={update}
+            />
+          ) : (
+            <></>
+          )}
         </div>
+        <label className="errorMsg">{errorMsg}</label>
         <div className="form-group__submit">
           <Button text={emp ? "Save" : "Create"} onClick={submit} />
           <Button

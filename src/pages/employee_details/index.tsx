@@ -3,41 +3,14 @@ import { EmployeeCard } from "../../components/EmployeeCard";
 import "./employee_details.css";
 import edit_icon from "../../assets/editpen_white.svg";
 import EmployeeEntity from "../../employee";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
+import { useGetEmployeeQuery } from "../../api-services/employees/employees.api";
 const EmployeeDetails = () => {
-  let emp = {
-    id: 28,
-    createdAt: "2025-05-23T05:38:32.757Z",
-    updatedAt: "2025-05-23T05:38:32.757Z",
-    deletedAt: null,
-    email: "employee9@gmail.com",
-    name: "Employee 9",
-    age: 22,
-    password: "$2b$10$pZqnoY3aQH8Lglh4F2mDWOEu8x0q/ysMJmBi/LfUK0XCDMj0mn.ES",
-    employeeId: "1",
-    dateOfJoining: "2025-05-23T01:25:39.175Z",
-    experience: 2,
-    status: "INACTIVE",
-    role: "UX",
-    address: {
-      id: 27,
-      createdAt: "2025-05-23T05:38:32.757Z",
-      updatedAt: "2025-05-23T05:38:32.757Z",
-      deletedAt: null,
-      line1: "123 Mascrch Street, kochi",
-      pincode: "849314",
-      line2: "Ernakulam,Kerala",
-      houseNo: "123",
-    },
-    department: {
-      id: 3,
-      createdAt: "2025-05-23T00:54:44.817Z",
-      updatedAt: "2025-05-23T00:54:44.817Z",
-      deletedAt: null,
-      name: "Design",
-    },
-  };
+  let {id}=useParams();
+
+  const {data:emp}=useGetEmployeeQuery({id:Number(id)});
   let navigate = useNavigate();
+   if(!emp)return;
   return (
     <>
     <title> Employee Details</title>
@@ -47,7 +20,7 @@ const EmployeeDetails = () => {
           <Button
             text="Edit"
             icon={edit_icon}
-            onClick={() => navigate("/employees/edit/" + emp.id)}
+            onClick={() => navigate("/employees/edit/" + emp?.id)}
           />
         </div>
       </div>

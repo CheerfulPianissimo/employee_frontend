@@ -34,7 +34,7 @@ const router = createBrowserRouter([
       { index: true, element: <EmployeeList /> },
       { path: "create", element: <Create /> },
       { path: "edit/:id", element: <Edit /> },
-      { path: ":id", element: <EmployeeDetails /> },
+      { path: ":id", element: <EmployeeDetails  /> },
       { path: "list", element: <EmployeeList /> },
     ],
   },

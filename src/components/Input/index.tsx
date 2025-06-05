@@ -9,7 +9,7 @@ export const Input = ({
   ref,
   endAdornment = null,
   value,
-  disabled=false
+  disabled = false,
 }: {
   label?: string;
   id: string;
@@ -18,12 +18,12 @@ export const Input = ({
   onChange?: React.ChangeEventHandler<HTMLInputElement>;
   ref?: React.RefObject<HTMLInputElement | null>;
   endAdornment?: ReactNode;
-  value?:string
-  disabled?:boolean
+  value?: string;
+  disabled?: boolean;
 }) => {
   return (
     <div className="label-input-group">
-      <label>{label}</label>
+      <label htmlFor={id}>{label}</label>
       <div className="textarea-group">
         <input
           type={type}

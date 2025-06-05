@@ -1,0 +1,98 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`Login Page > should match snapshot 1`] = `
+<div>
+  <div
+    class="login"
+  >
+    <div
+      class="left-div"
+    >
+      <img
+        class="left-img"
+        src="/src/assets/kv-login.jpeg"
+      />
+    </div>
+    <div
+      class="right-div"
+    >
+      <div
+        class="input-section"
+      >
+        <img
+          class="logo"
+          src="/src/assets/kv-logo.png"
+        />
+        <div
+          class="form-full"
+        >
+          <div
+            class="label-input-group"
+          >
+            <label
+              for="username"
+            >
+              Username
+            </label>
+            <div
+              class="textarea-group"
+            >
+              <input
+                id="username"
+                placeholder="Username"
+                type="text"
+                value=""
+              />
+              <button
+                disabled=""
+                type="button"
+              >
+                Clear
+              </button>
+            </div>
+          </div>
+          <label />
+          <label />
+          <div
+            class="label-input-group"
+          >
+            <label
+              for="password"
+            >
+              Password
+            </label>
+            <div
+              class="textarea-group"
+            >
+              <input
+                id="password"
+                placeholder="Password"
+                type="password"
+                value=""
+              />
+            </div>
+          </div>
+          <div>
+            <input
+              id="storePwd"
+              type="checkbox"
+            />
+            Show Password
+          </div>
+          <span
+            class="button-span "
+          >
+            <button
+              class="button button--primary"
+              disabled=""
+              type="submit"
+            >
+              Login
+            </button>
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;

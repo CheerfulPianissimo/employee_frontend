@@ -21,13 +21,15 @@ const EmployeeInfoElement = ({
   data: string;
   status?: boolean;
 }) => {
-  return (
+  const content=(
     <label
       className={"data-label".concat(status ? " info-status " + data : "")}
     >
       {data}
     </label>
+    
   );
+  return status?<div className="data-label">{content}</div>:content;
 };
 
 const EmployeeInfo = ({
@@ -68,7 +70,6 @@ const statusOptions = ["ALL", "ACTIVE", "PROBATION", "INACTIVE"];
 const EmployeeList = () => {
   // let employees = useAppSelector((state) => state.employee.employees);
   const { data: employees } = useGetEmployeeListQuery();
-  console.log(employees);
   const [deleteEmployee] = useDeleteEmployeeMutation();
   const [searchParams, setSearchParams] = useSearchParams();
   const [deleteConfirm, setDeleteConfirm] = useState(false);
@@ -76,7 +77,7 @@ const EmployeeList = () => {
   const navigate = useNavigate();
   const onOverlayDeletePressed = () => {
     // dispatch(deleteEmployee(activateDeleteConfirmFor.toString()));
-    console.log("activate for " + activateDeleteConfirmFor.toString());
+    // console.log("activate for " + activateDeleteConfirmFor.toString());
     deleteEmployee({id:activateDeleteConfirmFor})
       .unwrap()
       .catch((error) => {
@@ -137,7 +138,7 @@ const EmployeeList = () => {
               navigate("/employees/edit/" + emp.id);
               event.stopPropagation();
             }}
-            onClick={(event: Event) => {
+            onClick={() => {
               navigate("/employees/" + emp.id);
             }}
           />

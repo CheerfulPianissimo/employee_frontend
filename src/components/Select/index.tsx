@@ -28,7 +28,7 @@ export const Select = ({
   );
 };
 
-export type SelectOption = {
-  value: string;
+export interface SelectOption {
+  value: any;
   label: string;
 };
