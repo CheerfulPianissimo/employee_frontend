@@ -1,13 +1,10 @@
-// import jwt from 'jsonwebtoken'
 
-import { useState } from "react";
 import { useGetEmployeeQuery } from "../../api-services/employees/employees.api";
 import EmployeeDetails from "../employee_details";
-import { Input } from "../../components/Input";
 
 const Profile = () => {
   const token = window.localStorage.getItem("token");
-  const [password, usePassword] = useState("");
+//   const [password, usePassword] = useState("");
   if (!token) return <>No token found!</>;
   const base64Url = token.split(".")[1];
   const base64 = base64Url.replace("-", "+").replace("_", "/");

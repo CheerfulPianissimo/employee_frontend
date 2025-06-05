@@ -39,7 +39,7 @@ export const ProtectedLayout = ({
           className="bluebox"
           onClick={() => {
             window.localStorage.removeItem('token');
-            navigate("/login");
+            navigate("/");
           }}
         >
           <img src={logout_icon} />

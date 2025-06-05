@@ -1,5 +1,4 @@
 import employeeReducer from "./employee/employeeReducer";
-import logger from "redux-logger";
 import { configureStore } from "@reduxjs/toolkit";
 import { useDispatch, useSelector } from "react-redux";
 import type { Employee } from "./employee/employee.types";
